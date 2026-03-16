@@ -16,8 +16,7 @@ public class LoginSteps {
     @Given("user launches browser")
     public void user_launches_browser() {
 
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 
     }
 
@@ -29,22 +28,24 @@ public class LoginSteps {
 
     }
 
-    @And("user enters username and password")
-    public void user_enters_credentials() {
+    @And("user enters {string} and {string}")
+    public void user_enters_credentials(String username, String password) {
 
-        loginPage.enterUsername("Admin");
-        loginPage.enterPassword("admin123");
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
         loginPage.clickLogin();
 
     }
 
-    @Then("user should see dashboard")
-    public void verify_dashboard() {
+    @Then("user should see {string}")
+    public void verify_dashboard(String output) {
 
-        Assert.assertTrue(loginPage.verifyDashboard());
-
+        if (output.equals("dashboard")) {
+            Assert.assertTrue(loginPage.verifyDashboard());
+        } else {
+            Assert.assertTrue(loginPage.isErrorMessageDisplayed());
+        }
         driver.quit();
 
     }
-
 }

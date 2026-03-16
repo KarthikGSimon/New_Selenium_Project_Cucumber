@@ -37,5 +37,9 @@ public class LoginPage {
         wait.waitForElementPresent(dashboard);
         return driver.findElement(dashboard).isDisplayed();
     }
+    public boolean isErrorMessageDisplayed() {
+        wait.waitForElementPresent(dashboard);
+        return driver.findElement(dashboard).isDisplayed();
+    }
 
 }
